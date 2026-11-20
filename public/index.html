@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f2ff">
+  <meta name="description" content="Discover study groups, learn with peers, share resources, and chat.">
+  <title>StudySphere — Learn better, together</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar glass">
+      <div class="brand"><div class="logo">✦</div>StudySphere</div>
+      <nav class="nav" aria-label="Main navigation">
+        <button class="active" data-page="explore">Explore groups</button>
+        <button data-page="mine">My groups</button>
+        <button data-page="chats">Messages</button>
+      </nav>
+      <div class="account">
+        <div id="account-avatar" class="avatar hidden">S</div>
+        <span id="user-name" style="font-size:13px;font-weight:750"></span>
+        <button id="auth-open" class="button small">Sign in</button>
+        <button id="logout" class="ghost hidden">Sign out</button>
+      </div>
+    </header>
+
+    <section class="hero" id="hero">
+      <div>
+        <span class="eyebrow"><span class="dot"></span> Your next study circle starts here</span>
+        <h1>Learn better.<br><span class="gradient-text">Together.</span></h1>
+        <p>Find your people, build a learning routine, and make tough subjects feel more possible. Discover focused study groups by topic and skill level, work on goals together, and keep every discussion in one place.</p>
+        <div class="hero-actions"><button class="button" id="hero-explore">Explore study groups ↗</button><button class="button soft" id="hero-create">＋ Create a group</button></div>
+      </div>
+      <div class="hero-visual glass">
+        <div class="orb one"></div><div class="orb two"></div>
+        <div class="study-stack">
+          <div class="mini-card"><div class="mini-icon">⌘</div><div><b>Build skills together</b><small>Projects, practice, and peer learning</small></div></div>
+          <div class="mini-card"><div class="mini-icon">◷</div><div><b>Keep a study rhythm</b><small>Sessions and shared task lists</small></div></div>
+          <div class="mini-card"><div class="mini-icon">✉</div><div><b>Ask without hesitation</b><small>Group conversations and private DMs</small></div></div>
+        </div><div class="float-tag"><span class="dot"></span> Made for focused learning</div>
+      </div>
+    </section>
+
+    <section class="statline" aria-label="Platform features">
+      <div class="stat glass"><strong id="stat-groups">—</strong><span>Study circles to explore</span></div>
+      <div class="stat glass"><strong>4 levels</strong><span>Beginner to mixed skill groups</span></div>
+      <div class="stat glass"><strong>One space</strong><span>Chat, tasks, sessions, resources</span></div>
+    </section>
+
+    <main>
+      <section id="explore-page">
+        <div class="section-head"><div><h2 id="page-title">Find your study circle</h2><p id="page-subtitle">Browse by subject, level, and what you want to learn.</p></div><button id="create-open" class="button alt">＋ Create group</button></div>
+        <div class="filters glass">
+          <input id="search" class="field search-field" type="search" placeholder="Search Python, algorithms, Japanese…" aria-label="Search groups">
+          <select id="subject-filter" class="field" aria-label="Filter subject"><option value="">All subjects</option></select>
+          <select id="level-filter" class="field" aria-label="Filter level"><option value="">All levels</option></select>
+          <button id="search-button" class="button soft">Search</button>
+        </div>
+        <div id="groups" class="group-grid"><div class="empty glass"><b>Loading study groups…</b>Connecting to the study community.</div></div>
+      </section>
+
+      <section id="mine-page" class="hidden">
+        <div class="section-head"><div><h2>My study groups</h2><p>Your active group memberships and the work you are doing together.</p></div><button class="button alt" id="mine-create">＋ Create group</button></div>
+        <div id="my-groups" class="group-grid"><div class="empty glass"><b>Sign in to see your groups</b>Your memberships appear here.</div></div>
+      </section>
+
+      <section id="chats-page" class="hidden">
+        <div class="section-head"><div><h2>Your conversations</h2><p>Continue a group discussion or open a private conversation with a learner.</p></div><button class="button soft" id="refresh-conversations">Refresh</button></div>
+        <div id="conversations" class="list-stack"><div class="empty glass"><b>Sign in to see your messages</b>Group chats and direct messages appear here.</div></div>
+        <div id="direct-workspace" class="workspace glass hidden"></div>
+      </section>
+
+      <section id="group-workspace" class="workspace glass hidden" aria-live="polite">
+        <div class="workspace-head"><div><h2 id="workspace-title">Study group</h2><p id="workspace-meta"></p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button id="refresh-workspace" class="button soft small">↻ Refresh</button><button id="close-workspace" class="ghost">Close</button></div></div>
+        <div class="work-tabs"><button class="active" data-worktab="chat">Group chat</button><button data-worktab="resources">Resources</button><button data-worktab="tasks">Tasks</button><button data-worktab="sessions">Study sessions</button><button data-worktab="members">Members</button><button id="join-requests-tab" class="hidden" data-worktab="requests">Join Requests</button></div>
+        <div id="work-panel" class="work-panel"></div>
+      </section>
+
+      <section id="create-panel" class="workspace glass hidden">
+        <div class="workspace-head"><div><h2>Create a study group</h2><p>Make a clear space for people working toward a shared learning goal.</p></div><button id="close-create" class="ghost">Close</button></div>
+        <form id="create-form" class="form-grid" style="margin-top:16px">
+          <input class="field wide" name="name" placeholder="Group name (e.g. Machine Learning Foundations)" minlength="3" maxlength="140" required>
+          <input class="field wide" name="short_description" placeholder="Short description (what will members learn?)" maxlength="250">
+          <select class="field" name="subject_id" id="create-subject" required><option value="">Choose subject</option></select>
+          <select class="field" name="level_id" id="create-level" required><option value="">Choose skill level</option></select>
+          <select class="field" name="group_type"><option value="STUDY">Regular study</option><option value="EXAM_PREP">Exam preparation</option><option value="PROJECT">Project team</option><option value="REVISION">Revision</option><option value="HOMEWORK">Homework help</option><option value="LANGUAGE_EXCHANGE">Language exchange</option></select>
+          <select class="field" name="visibility"><option value="PUBLIC">Public - anyone can join</option><option value="PRIVATE">Private - request to join</option><option value="UNLISTED">Unlisted</option></select>
+          <input class="field" name="max_members" type="number" min="2" max="1000" value="30" required>
+          <textarea class="field wide" name="full_description" rows="3" placeholder="Detailed description, schedule, prerequisites, goals…"></textarea>
+          <div class="wide"><button class="button" type="submit">Create study group</button><p class="notice">Creating a group also creates its owner membership and group-chat conversation in one database transaction.</p></div>
+        </form>
+      </section>
+    </main>
+    <footer class="footer"><span>StudySphere · A peer-learning community project</span><span>Explore · Collaborate · Grow together</span></footer>
+  </div>
+
+  <div id="auth-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+    <div class="modal glass"><button id="auth-close" class="modal-close" aria-label="Close">×</button><h2 id="auth-title">Welcome back</h2><p id="auth-desc">Sign in to join groups, message your peers, and keep your learning organised.</p>
+      <form id="auth-form"><div id="register-name-wrap" class="hidden"><input class="field" name="display_name" placeholder="Display name" maxlength="80"></div><input class="field" name="identifier" id="auth-identifier" placeholder="Username or email" autocomplete="username" required><div id="register-username-wrap" class="hidden"><input class="field" name="username" placeholder="Username (3-30 letters/numbers/_)" minlength="3" maxlength="30" autocomplete="username"></div><div id="register-email-wrap" class="hidden"><input class="field" name="email" type="email" placeholder="Email address" autocomplete="email"></div><input class="field" name="password" type="password" placeholder="Password (10+ characters)" minlength="10" maxlength="128" autocomplete="current-password" required><button id="auth-submit" class="button" type="submit">Sign in</button></form>
+      <div class="switch-auth"><span id="switch-copy">New here?</span> <button id="auth-switch">Create an account</button></div>
+    </div>
+  </div>
+  <div id="toast" class="toast hidden" role="status"></div>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>
